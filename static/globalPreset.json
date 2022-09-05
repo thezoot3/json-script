@@ -1,0 +1,15 @@
+{
+  "placeholder": {
+    "characters": {
+      "startWith": "${",
+      "endWith": "}"
+    },
+    "allowsReactChild": true,
+    "allowsFunction": false
+  },
+  "input": {
+    "type": "object",
+    "nonExistedValue": "",
+    "noWholeNoRender": false
+  }
+}

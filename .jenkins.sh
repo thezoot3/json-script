@@ -4,6 +4,7 @@ tree dist
 cp -r static/ dist/static/
 cp package.json ./dist/package.json
 cp .npmrc ./dist/.npmrc
+rm .npmrc
 cp .npmignore ./dist/.npmignore
 cd ./dist || exit
 tree -a

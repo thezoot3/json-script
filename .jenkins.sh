@@ -6,6 +6,6 @@ cp package.json ./dist/package.json
 cp .npmrc ./dist/.npmrc
 cp .npmignore ./dist/.npmignore
 cd ./dist || exit
-tree
+tree -a
 npm publish
 

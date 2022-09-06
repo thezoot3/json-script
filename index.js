@@ -1,3 +1,4 @@
 import { ScriptLang } from './src/context/ScriptLang.jsx';
-import  ScriptParser from './src/utils/parser/parser.js';
-export { ScriptLang, ScriptParser }
+import { ScriptLoader } from './src/context/ScriptLoader';
+import Script from './src/component/Script'
+export { ScriptLang, ScriptLoader, Script }

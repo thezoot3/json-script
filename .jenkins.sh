@@ -8,5 +8,6 @@ rm .npmrc
 cp .npmignore ./dist/.npmignore
 tree -a -L 1
 cd ./dist || exit
+echo .npmrc
 npm publish
 

@@ -14,7 +14,6 @@
   "author": "thezoot3",
   "license": "Apache License, Version 2.0",
   "repository": {
-    "type": "git",
     "url": "https://github.com/thezoot3/json-script.git"
   },
   "files": ["*"],

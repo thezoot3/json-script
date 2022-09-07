@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Deploy to Github Packages...'
                 dir('./dist') {
-                    sh 'npx vsts-npm-auth -config .npmrc'
+                    sh 'npx better-vsts-npm-auth -config .npmrc'
                     sh "npm publish"
                 }
                 echo 'Deploy Successfully!'

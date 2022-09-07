@@ -29,7 +29,7 @@ pipeline {
                 sh 'sudo cp .npmrc ./dist/.npmrc'
                 sh 'sudo rm .npmrc'
                 sh 'sudo cp .npmignore ./dist/.npmignore'
-                sh 'sudo cd ./dist || exit'
+                dir('./dist')
             }
         }
         stage('Deploy') {

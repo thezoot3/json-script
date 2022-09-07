@@ -1,20 +1,20 @@
-const SET_LANG = "SET_LANG"
-const SET_SCRIPT = "SET_SCRIPT"
+const SET_LANG = 'SET_LANG'
+const SET_SCRIPT = 'SET_SCRIPT'
 export const setLang = (lang) => {
     return {
         type: SET_LANG,
-        lang
+        lang,
     }
 }
 export const setScript = (script) => {
     return {
         type: SET_SCRIPT,
-        script
+        script,
     }
 }
 const defaultValue = {
-    "lang": "",
-    "script": {}
+    'lang': '',
+    'script': {},
 }
 export const reducer = (state = defaultValue, action) => {
     switch (action.type) {

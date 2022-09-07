@@ -1,12 +1,25 @@
-import {useSelector} from "react-redux";
-import {useEffect, useState, Fragment} from "react";
-function Script({key, placeholder, children}) {
-    const script = useSelector(i => {return i[key]})
+import {useSelector} from 'react-redux';
+import {useEffect, useState, Fragment} from 'react';
+import PropTypes from 'prop-types';
+
+/**
+ *
+ * @param key
+ * @param placeholder
+ * @param children
+ * @returns {JSX.Element}
+ * @type { (key: String, placeholder: Object, children: Array<JSX.Element>) => JSX.Element}
+ * @constructor
+ */
+function Script({key, placeholder = {}, children = []}) {
+    const script = useSelector(i => {
+        return i[key]
+    })
     const [replaced, setReplaced] = useState("");
     useEffect(() => {
-        let literal = script.literal
+        const literal = script.literal
         let returnValue = []
-        let placeKey = Array.from(literal.matchAll(script.regexp))
+        const placeKey = Array.from(literal.matchAll(script.regexp))
         literal.split(script.regexp).forEach((v, i) => {
             returnValue.push(v);
             if(placeKey[i]) {
@@ -33,5 +46,10 @@ function Script({key, placeholder, children}) {
             })}
         </Fragment>
     )
+}
+Script.propTypes = {
+    key: PropTypes.string.isRequired,
+    placeholder: PropTypes.object,
+    children: PropTypes.array,
 }
 export default Script

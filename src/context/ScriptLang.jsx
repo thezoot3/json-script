@@ -1,7 +1,7 @@
 import {reducer as langReducer, setLang, setPresets} from '../redux/ScriptLang';
-import { createStore } from "redux";
-import PropTypes from "prop-types";
-import {Provider} from "react-redux";
+import { createStore } from 'redux';
+import PropTypes from 'prop-types';
+import {Provider} from 'react-redux';
 export const ScriptLang = {
     createStore(defaultLang) {
         this.defaultLang = defaultLang;
@@ -16,8 +16,10 @@ export const ScriptLang = {
                 {children}
             </Provider>
         )
-    }
+    },
 }
 ScriptLang.Provider.propTypes = {
-    value: PropTypes.string.isRequired
+    lang: PropTypes.string.isRequired,
+    presets: PropTypes.any,
+    children: PropTypes.any.isRequired,
 }

@@ -1,20 +1,21 @@
-import {createContext, useContext} from "react";
-import PropTypes from "prop-types";
-import ScriptParser from "../utils/parser/parser";
+import PropTypes from 'prop-types';
+import ScriptParser from '../utils/parser/parser';
 import globalPreset from '../../static/globalPreset.json';
 import {reducer as loaderReducer, setLang, setScript} from '../redux/ScriptLoader';
-import {Provider, useSelector} from "react-redux";
-import {createStore} from "redux";
+import {Provider, useSelector} from 'react-redux';
+import {createStore} from 'redux';
 export const ScriptLoader = {
     createStore() {
         this.store = createStore(loaderReducer)
         return this.store;
     },
     Provider({script, children}) {
-        const [lang, presets] = useSelector(i => {return [i.lang, i.presets]})
+        const [lang, presets] = useSelector(i => {
+            return [i.lang, i.presets]
+        })
         this.store.dispatch(setLang(lang))
         this.parser = new ScriptParser([...presets, {globalPreset}]).getParser(script)
-        let parsed = this.parser().parse()
+        const parsed = this.parser().parse()
         if(script.lang.contains(lang)) {
             this.store.dispatch(setScript(parsed[lang]));
         } else {
@@ -22,11 +23,12 @@ export const ScriptLoader = {
         }
         return (
             <Provider store={this.store}>
-                {children}
+                {children.constructor === Array ? children : <children/>}
             </Provider>
         )
     },
 }
 ScriptLoader.Provider.propTypes = {
     script: PropTypes.string.isRequired,
+    children: PropTypes.any.isRequired,
 }

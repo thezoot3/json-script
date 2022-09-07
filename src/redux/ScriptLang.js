@@ -1,20 +1,20 @@
-const SET_LANG = "SET_LANG"
-const SET_PRESETS = "SET_PRESETS"
+const SET_LANG = 'SET_LANG'
+const SET_PRESETS = 'SET_PRESETS'
 export const setLang = (lang) => {
     return {
         type: SET_LANG,
-        lang
+        lang,
     }
 }
 export const setPresets = (presets) => {
     return {
         type: SET_PRESETS,
-        presets
+        presets,
     }
 }
 const defaultValue = {
-    "lang": "",
-    "presets": []
+    'lang': '',
+    'presets': [],
 }
 export const reducer = (state = defaultValue, action) => {
     switch (action.type) {

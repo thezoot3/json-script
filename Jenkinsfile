@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('Packages Install') {
             steps {
+                sh "chmod ../json-script 777"
                 echo "Npm Packages Installing"
                 sh "npm install"
                 echo "Npm Packages Installed"

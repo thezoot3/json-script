@@ -29,6 +29,7 @@ pipeline {
                 sh 'sudo cp .npmrc ./dist/.npmrc'
                 sh 'sudo rm .npmrc'
                 sh 'sudo cp .npmignore ./dist/.npmignore'
+                sh 'tree -a'
             }
         }
         stage('Deploy') {

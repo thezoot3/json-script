@@ -29,14 +29,14 @@ pipeline {
                 sh 'sudo cp .npmrc ./dist/.npmrc'
                 sh 'sudo rm .npmrc'
                 sh 'sudo cp .npmignore ./dist/.npmignore'
-                dir('./dist') {
-                    sh 'pwd'
-                }
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploy to Github Packages...'
+                dir('./dist') {
+                    sh 'pwd'
+                }
                 sh "npm publish"
                 echo 'Deploy Successfully!'
             }

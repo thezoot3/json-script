@@ -24,12 +24,12 @@ pipeline {
         }
         stage('PreDeploy') {
             steps {
-                sh 'sudo cp -r static/ dist/static/;
-                    cp package.json ./dist/package.json;
-                    cp .npmrc ./dist/.npmrc;
-                    rm .npmrc;
-                    cp .npmignore ./dist/.npmignore;
-                    cd ./dist || exit'
+                sh 'sudo cp -r static/ dist/static/'
+                sh 'sudo cp package.json ./dist/package.json'
+                sh 'sudo cp .npmrc ./dist/.npmrc'
+                sh 'sudo rm .npmrc'
+                sh 'sudo cp .npmignore ./dist/.npmignore'
+                sh 'sudo cd ./dist || exit'
             }
         }
         stage('Deploy') {

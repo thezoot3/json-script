@@ -35,6 +35,7 @@ pipeline {
             steps {
                 echo 'Deploy to Github Packages...'
                 dir('./dist') {
+                    sh "npm adduser"
                     sh "npm publish"
                 }
                 echo 'Deploy Successfully!'

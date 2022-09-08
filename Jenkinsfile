@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Deploy to Github Packages...'
                 dir('./dist') {
-                    sh "npm config set registry https://npm.pkg.github.com"
+                    sh "npm login"
                     sh "npm publish"
                 }
                 echo 'Deploy Successfully!'

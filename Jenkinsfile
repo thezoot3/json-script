@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Deploy to Github Packages...'
                 dir('./dist') {
-                    sh "npm adduser"
+                    sh "npm adduser --registry=https://npm.pkg.github.com --scope=@thezoot3"
                     sh "npm publish"
                 }
                 echo 'Deploy Successfully!'

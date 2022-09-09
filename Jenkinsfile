@@ -28,6 +28,7 @@ pipeline {
                 sh 'sudo cp -r static/ dist/static/'
                 sh 'sudo cp package.json ./dist/package.json'
                 sh 'sudo cp .npmignore ./dist/.npmignore'
+                sh 'sudo cp .npmrc ./dist/.npmrc'
                 sh 'sudo cp LICENSE ./dist/LICENSE'
                 sh 'npm login --scope=@thezoot3 --registry=https://npm.pkg.github.com | (echo thezoot3; echo ${GHP_THEZOOT3_TOKEN}; echo thezoot3@gmail.com;)'
             }

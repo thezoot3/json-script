@@ -2,7 +2,9 @@ pipeline {
     agent any
     stages {
         stage('Cleanup Workspace') {
-            cleanWs()
+            steps {
+                cleanWs()
+            }
         }
         stage('NPM Packages Install') {
             steps {

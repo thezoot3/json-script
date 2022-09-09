@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()
-            }
-        }
         stage('NPM Packages Install') {
             steps {
                 echo "Npm Packages Installing"

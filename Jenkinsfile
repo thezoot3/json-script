@@ -1,6 +1,15 @@
 pipeline {
     agent any
+    options {
+            skipDefaultCheckout(true)
+    }
     stages {
+        stage('Checkout SCM') {
+            steps {
+                cleanWs()
+                checkout scm
+            }
+        }
         stage('NPM Packages Install') {
             steps {
                 sh 'npm config set loglevel info'
@@ -44,7 +53,6 @@ pipeline {
                     sh 'npm publish'
                 }
                 echo 'Deploy Complete'
-                cleanWs()
             }
         }
     }

@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh 'sudo cp -r static/ dist/static/'
                 sh 'sudo cp package.json ./dist/package.json'
-                sh 'sudo cp .npmrc ./dist/.npmrc'
+
                 sh 'sudo cp .npmignore ./dist/.npmignore'
             }
         }

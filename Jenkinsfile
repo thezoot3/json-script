@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('NPM Packages Install') {
             steps {
-                sh 'npm cache clean --force'
+                sh 'npm config set loglevel info'
                 echo "Npm Packages Installing"
                 sh "sudo npm install"
                 echo "Npm Packages Installed"

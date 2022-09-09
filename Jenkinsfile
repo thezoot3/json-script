@@ -32,7 +32,6 @@ pipeline {
                 sh 'sudo cp .npmrc ./dist/.npmrc'
                 sh 'sudo cp LICENSE ./dist/LICENSE'
                 dir('./dist') {
-                    sh 'npm i npm-cli-adduser -d'
                     sh 'npx npm-cli-adduser -u thezoot3 -p ${GHP_THEZOOT3_TOKEN} -e thezoot3@gmail.com -r https://npm.pkg.github.com -s @thezoot3'
                 }
             }

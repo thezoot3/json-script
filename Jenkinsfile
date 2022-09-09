@@ -29,8 +29,9 @@ pipeline {
                 sh 'sudo cp package.json ./dist/package.json'
                 sh 'sudo cp .npmignore ./dist/.npmignore'
                 sh 'sudo cp .npmrc ./dist/.npmrc'
+                sh 'sudo cp .AUTH ./dist/.AUTH'
                 sh 'sudo cp LICENSE ./dist/LICENSE'
-                sh "cat ../AUTH | npm login -scope=@thezoot3 --registry=https://npm.pkg.github.com"
+                sh "cat .AUTH | npm login -scope=@thezoot3 --registry=https://npm.pkg.github.com"
             }
         }
         stage('Deploy') {

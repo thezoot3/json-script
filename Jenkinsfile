@@ -30,7 +30,7 @@ pipeline {
                 sh 'sudo cp .npmignore ./dist/.npmignore'
                 sh 'sudo cp .npmrc ./dist/.npmrc'
                 sh 'sudo cp LICENSE ./dist/LICENSE'
-                sh 'echo -e "thezoot3\${GHP_THEZOOT3_TOKEN}\thezoot3@gmail.com" | npm login -scope=@thezoot3 --registry=https://npm.pkg.github.com'
+                sh 'echo thezoot3\${GHP_THEZOOT3_TOKEN}\thezoot3@gmail.com -e | npm login -scope=@thezoot3 --registry=https://npm.pkg.github.com'
             }
         }
         stage('Deploy') {

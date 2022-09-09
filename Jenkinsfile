@@ -34,9 +34,10 @@ pipeline {
             steps {
                 echo 'Deploy to Github Packages...'
                 dir('./dist') {
-                    sh "npm publish"
+                    withNPM(npmrcConfig:'.npmrc') {
+                        sh "npm publish"
+                    }
                 }
-                echo 'Deploy Successfully!'
             }
         }
     }

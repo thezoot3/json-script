@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Babel Compile') {
             steps {
-                sh 'sudo rm -r ./dist'
+
                 echo 'Babel Compiling Started...'
                 sh "sudo npm run compile"
                 echo 'Babel Compile Completed'

@@ -34,7 +34,7 @@ pipeline {
             steps {
                 echo 'Deploy to Github Packages...'
                 dir('./dist') {
-                    withNPM(npmrcConfig:'.npmrc') {
+                    withNPM(npmrcConfig:'thezoot3-npmrc') {
                         sh "npm publish"
                     }
                 }

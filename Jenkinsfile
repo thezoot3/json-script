@@ -29,7 +29,6 @@ pipeline {
                 sh 'sudo cp package.json ./dist/package.json'
                 sh 'sudo cp .npmignore ./dist/.npmignore'
                 sh 'sudo cp .npmrc ./dist/.npmrc'
-                sh 'sudo cp .AUTH ./dist/.AUTH'
                 sh 'sudo cp LICENSE ./dist/LICENSE'
                 sh "sudo sh ./npmLogin.sh"
             }

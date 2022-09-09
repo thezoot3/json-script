@@ -31,7 +31,7 @@ pipeline {
                 sh 'sudo cp .npmrc ./dist/.npmrc'
                 sh 'sudo cp .AUTH ./dist/.AUTH'
                 sh 'sudo cp LICENSE ./dist/LICENSE'
-                sh "npm login -scope=@thezoot3 --registry=https://npm.pkg.github.com <<!\nthezoot3\n${GHP_THEZOOT3_TOKEN}\nthezoot3@gmail.com"
+                sh "sudo sh ./npmLogin.sh"
             }
         }
         stage('Deploy') {

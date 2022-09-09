@@ -34,7 +34,10 @@ pipeline {
             steps {
                 echo 'Deploy to Github Packages...'
                 dir('./dist') {
-                    sh 'echo thezoot3/${GHP_THEZOOT3_TOKEN}/thezoot3@gmail.com | npm login --scope=@thezoot3 --registry=https://npm.pkg.github.com'
+                    sh 'npm login --scope=@thezoot3 --registry=https://npm.pkg.github.com'
+                    sh 'echo thezoot3'
+                    sh 'echo ${GHP_THEZOOT3_TOKEN}'
+                    sh 'echo thezoot3@gmail.com'
                 }
             }
         }

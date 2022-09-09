@@ -24,9 +24,9 @@ pipeline {
         }
         stage('PreDeploy') {
             steps {
+                sh 'sudo rmdir -r ./dist'
                 sh 'sudo cp -r static/ dist/static/'
                 sh 'sudo cp package.json ./dist/package.json'
-
                 sh 'sudo cp .npmignore ./dist/.npmignore'
             }
         }

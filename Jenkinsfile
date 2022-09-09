@@ -34,8 +34,7 @@ pipeline {
             steps {
                 echo 'Deploy to Github Packages...'
                 dir('./dist') {
-                    sh 'npm login --scope=@thezoot3 --registry=https://npm.pkg.github.com'
-                    sh 'echo "thezoot3 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 thezoot3@gmail.com" | npm'
+                    sh 'echo "thezoot3 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 thezoot3@gmail.com" | npm login --scope=@thezoot3 --registry=https://npm.pkg.github.com'
                 }
             }
         }

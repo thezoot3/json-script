@@ -4,10 +4,10 @@ import globalPreset from '../../static/globalPreset.json';
 import {reducer as loaderReducer, setLang, setScript} from '../redux/ScriptLoader';
 import {Provider, useSelector} from 'react-redux';
 import {createStore} from 'redux';
-export const ScriptLoader = {
+export const scriptLoader = {
     createStore() {
         this.store = createStore(loaderReducer)
-        return this.store;
+        return [this, this.store];
     },
     Provider({script, children}) {
         const [lang, presets] = useSelector(i => {
@@ -28,7 +28,7 @@ export const ScriptLoader = {
         )
     },
 }
-ScriptLoader.Provider.propTypes = {
+scriptLoader.Provider.propTypes = {
     script: PropTypes.string.isRequired,
     children: PropTypes.any.isRequired,
 }

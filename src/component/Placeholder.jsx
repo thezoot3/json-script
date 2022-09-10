@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 
-function Placeholder({key, value, disabled = false}) {
+function placeholder({key, value, disabled = false}) {
     return disabled ? null : {[key]: value}
 }
-Placeholder.propTypes = {
+placeholder.propTypes = {
     key: PropTypes.string.isRequired,
     value : PropTypes.any.isRequired,
     disabled: PropTypes.bool,
 }
-export default Placeholder
+export default placeholder

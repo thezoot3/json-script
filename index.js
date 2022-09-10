@@ -1,4 +1,5 @@
-import { ScriptLang } from './src/context/ScriptLang.jsx';
-import { ScriptLoader } from './src/context/ScriptLoader';
+import { scriptLang as ScriptLang } from './src/store/ScriptLang.jsx';
+import { scriptLoader as ScriptLoader } from './src/store/ScriptLoader';
 import Script from './src/component/Script'
-export { ScriptLang, ScriptLoader, Script }
+import Placeholder from "./src/component/Placeholder";
+export { ScriptLang, ScriptLoader, Script, Placeholder }

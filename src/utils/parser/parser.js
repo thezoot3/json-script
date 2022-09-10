@@ -1,8 +1,8 @@
 /**
  * Script Parser for ScriptLoader.jsx
- * @type { (presets: Array) =>  ScriptParser}
+ * @type { (presets: Array) =>  scriptParser}
  */
-export default class ScriptParser {
+export default class scriptParser {
     #presets = {}
     /* eslint-disable-next-line require-jsdoc */
     constructor(presets) {
@@ -12,17 +12,17 @@ export default class ScriptParser {
     /**
      * Returns Parser executed by ScriptLoader.jsx
      * @param scriptJson
-     * @returns {Parser}
-     * @type { (scriptJson: Object) => Parser}
+     * @returns {parser}
+     * @type { (scriptJson: Object) => parser}
      */
     getParser(scriptJson) {
-        return new Parser(this.#presets, scriptJson);
+        return new parser(this.#presets, scriptJson);
     }
     /**
      * Register Extended file presets
      * @param presets
-     * @returns {ScriptParser}
-     * @type { (presets: Object) => ScriptParser}
+     * @returns {scriptParser}
+     * @type { (presets: Object) => scriptParser}
      */
     registerPresets(presets = {}) {
         for(const [k, v] of Object.entries(presets)) {
@@ -35,7 +35,7 @@ export default class ScriptParser {
 /**
  * Divided Class from ScriptParser due to Security
  */
-class Parser {
+class parser {
     #scriptR = {};
     #scriptD = {};
     #presetR = {};

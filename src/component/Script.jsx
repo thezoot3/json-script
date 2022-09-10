@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
  * @type { (key: String, placeholder: Object, children: Array<JSX.Element>) => JSX.Element}
  * @constructor
  */
-function Script({key, placeholder = {}, children = []}) {
+function script({key, placeholder = {}, children = []}) {
     const script = useSelector(i => {
         return i[key]
     })
@@ -47,9 +47,9 @@ function Script({key, placeholder = {}, children = []}) {
         </Fragment>
     )
 }
-Script.propTypes = {
+script.propTypes = {
     key: PropTypes.string.isRequired,
     placeholder: PropTypes.object,
     children: PropTypes.array,
 }
-export default Script
+export default script

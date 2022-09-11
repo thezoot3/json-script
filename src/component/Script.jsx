@@ -11,27 +11,32 @@ import PropTypes from 'prop-types';
  * @type { (key: String, placeholder: Object, children: Array<JSX.Element>) => JSX.Element}
  * @constructor
  */
-function Script({key, placeholder = {}, children = []}) {
-    const script = useSelector(i => {
-        return i[key]
+function script({key, placeholder = {}, children = []}) {
+    const [script = "", config = {}] = useSelector(i => {
+        return [i[key], i.config]
     })
     const [replaced, setReplaced] = useState("");
     useEffect(() => {
-        const literal = script.literal
         let returnValue = []
-        const placeKey = Array.from(literal.matchAll(script.regexp))
-        literal.split(script.regexp).forEach((v, i) => {
+        const placeKey = Array.from(script.matchAll(config.regexp))
+        script.split(config.regexp).every((v, i) => {
             returnValue.push(v);
             if(placeKey[i]) {
-                if(placeholder[i].$$typeof === Symbol.for('react.element') || !script.options.placeholder.allowsReactChild) {
+                if(placeholder[i].$$typeof === Symbol.for('react.element') || !config.placeholder.allowsReactChild) {
                     console.warn(`"${key}" Script doesn't allow to use react element for placeholder. So value of placeholder "${v}" won't be applied`);
                     return;
                 }
-                if(placeholder[i].constructor === Function || !script.options.placeholder.allowsFunction) {
+                if(placeholder[i].constructor === Function || !config.placeholder.allowsFunction) {
                     console.warn(`"${key}" Script doesn't allow to use function for placeholder. So value of placeholder "${v}" won't be applied`);
                     return;
                 }
-                returnValue.push(placeholder[v]);
+                if(!placeholder[placeKey[i][1]] && config.input.noWholeNoRender) {
+                    let replacement = <div className={config.input.noWholeNoRender.cssClass}>{config.input.noWholeNoRender.content}</div>
+                    returnValue = [replacement]
+                    return false;
+                } else {
+                    returnValue.push(placeholder[placeKey[i][1]]);
+                }
             }
         })
         setReplaced(returnValue)
@@ -47,9 +52,9 @@ function Script({key, placeholder = {}, children = []}) {
         </Fragment>
     )
 }
-Script.propTypes = {
+script.propTypes = {
     key: PropTypes.string.isRequired,
     placeholder: PropTypes.object,
     children: PropTypes.array,
 }
-export default Script
+export default script

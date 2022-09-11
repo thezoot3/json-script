@@ -51,10 +51,8 @@ pipeline {
                 sh 'sudo cp -r static/ dist/static/'
                 sh 'sudo cp package.json ./dist/package.json'
                 sh 'sudo cp .npmignore ./dist/.npmignore'
-
                 sh 'sudo cp LICENSE ./dist/LICENSE'
                 dir('./dist') {
-
                     sh 'npx npm-cli-adduser -u thezoot3 -p ${GHP_THEZOOT3_TOKEN} -e thezoot3@gmail.com -r https://npm.pkg.github.com/ -s thezoot3'
                 }
             }

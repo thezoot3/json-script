@@ -4,31 +4,29 @@ import globalPreset from '../../static/globalPreset.json';
 import {reducer as loaderReducer, setLang, setScript} from '../redux/ScriptLoader';
 import {Provider, useSelector} from 'react-redux';
 import {createStore} from 'redux';
-export const scriptLoader = {
-    createStore() {
-        this.store = createStore(loaderReducer)
-        return [this, this.store];
-    },
-    Provider({script, children}) {
-        const [lang, presets] = useSelector(i => {
-            return [i.lang, i.presets]
-        })
-        this.store.dispatch(setLang(lang))
-        this.parser = new ScriptParser([...presets, {globalPreset}]).getParser(script)
-        const parsed = this.parser().parse()
+import {useEffect} from "react";
+function scriptLoader({script, children}) {
+    const store = createStore(loaderReducer)
+    const [lang, presets] = useSelector(i => {
+        return [i.lang, i.presets]
+    })
+    useEffect(() => {
+        store.dispatch(setLang(lang))
+        const parsed = new ScriptParser([...presets, {globalPreset}]).parse(script)
         if(script.lang.contains(lang)) {
-            this.store.dispatch(setScript(parsed[lang]));
+            store.dispatch(setScript(parsed[lang], parsed.config));
         } else {
-            this.store.dispatch(setScript(parsed[script.defaultLang]));
+            store.dispatch(setScript(parsed[script.defaultLang], parsed.config));
         }
-        return (
-            <Provider store={this.store}>
-                {children.constructor === Array ? children : <children/>}
-            </Provider>
-        )
-    },
+    }, [lang, presets, store, script])
+    return (
+        <Provider store={store}>
+            {children.constructor === Array ? children : <children/>}
+        </Provider>
+    )
 }
-scriptLoader.Provider.propTypes = {
+
+scriptLoader.propTypes = {
     script: PropTypes.string.isRequired,
     children: PropTypes.any.isRequired,
 }

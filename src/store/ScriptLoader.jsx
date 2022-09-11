@@ -5,7 +5,7 @@ import {reducer as loaderReducer, setLang, setScript} from '../redux/ScriptLoade
 import {Provider, useSelector} from 'react-redux';
 import {createStore} from 'redux';
 import {useEffect} from "react";
-function scriptLoader({script, children}) {
+export function scriptLoader({script, children}) {
     const store = createStore(loaderReducer)
     const [lang, presets] = useSelector(i => {
         return [i.lang, i.presets]

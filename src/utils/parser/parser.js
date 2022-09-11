@@ -38,7 +38,7 @@ export default class scriptParser {
         data.config = parsePresets();
         data.config.regexp = generateRegexp({...data.config.placeholder.characters})
         for(const [k, v] of Object.entries(scriptJson['script'])) {
-            if(!this.#scriptR['lang'].find(i => {
+            if(!scriptJson['lang'].find(i => {
                 return i === k
             })) {
                 throw new Error('There is unexpected language in script data');

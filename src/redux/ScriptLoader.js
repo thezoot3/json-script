@@ -6,10 +6,11 @@ export const setLang = (lang) => {
         lang,
     }
 }
-export const setScript = (script) => {
+export const setScript = (script, config) => {
     return {
         type: SET_SCRIPT,
         script,
+        config,
     }
 }
 const defaultValue = {
@@ -21,7 +22,7 @@ export const reducer = (state = defaultValue, action) => {
         case SET_LANG:
             return {...state, lang: action.lang}
         case SET_SCRIPT:
-            return {...state, script: action.script}
+            return {...state, script: action.script, config: action.config}
         default:
             return state;
     }

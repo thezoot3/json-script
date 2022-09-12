@@ -21,7 +21,7 @@ export function scriptConfig({defaultLang, currentLang, presets, children}) {
         store.dispatch(setPresets(presets))
     }, [presets])
     return (
-        <Provider store={this.store}>
+        <Provider store={store}>
             {children}
         </Provider>
     )

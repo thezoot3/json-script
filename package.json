@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "eslint": "node Lint.js",
-    "compile": "babel src -d dist && babel index.js --out-file dist/index.js"
+    "compile": "babel src -d dist/src && babel index.js --out-file dist/index.js"
   },
   "peerDependencies": {
     "react": "^18.2.0",

@@ -1,5 +1,12 @@
 import PropTypes from "prop-types";
 
+/**
+ *
+ * @param key
+ * @param value
+ * @param disabled
+ * @returns {null}
+ */
 function placeholder({key, value, disabled = false}) {
     return disabled ? null : {[key]: value}
 }

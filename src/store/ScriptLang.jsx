@@ -3,6 +3,15 @@ import { createStore } from 'redux';
 import PropTypes from 'prop-types';
 import {Provider} from 'react-redux';
 import {useEffect} from "react";
+
+/**
+ *
+ * @param defaultLang
+ * @param lang
+ * @param presets
+ * @param children
+ * @returns {JSX.Element}
+ */
 export function scriptLang({defaultLang, lang, presets, children}) {
     const store = createStore(langReducer)
     useEffect(() => {

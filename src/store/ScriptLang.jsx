@@ -12,19 +12,21 @@ import {useEffect} from "react";
  * @param children
  * @returns {JSX.Element}
  */
-export function scriptLang({defaultLang, lang, presets, children}) {
+export function scriptConfig({defaultLang, currentLang, presets, children}) {
     const store = createStore(langReducer)
     useEffect(() => {
-        store.dispatch(setLang(lang || defaultLang));
+        store.dispatch(setLang(currentLang || defaultLang));
+    }, [currentLang, defaultLang])
+    useEffect(async () => {
         store.dispatch(setPresets(presets))
-    }, [lang, defaultLang, presets, store])
+    }, [presets])
     return (
         <Provider store={this.store}>
             {children}
         </Provider>
     )
 }
-scriptLang.propTypes = {
+scriptConfig.propTypes = {
     lang: PropTypes.string.isRequired,
     presets: PropTypes.any,
     children: PropTypes.any.isRequired,

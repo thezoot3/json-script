@@ -4,18 +4,18 @@ import PropTypes from 'prop-types';
 
 /**
  *
- * @param key
+ * @param name
  * @param placeholder
  * @param children
  * @returns {JSX.Element}
  * @type { (key: String, placeholder: Object, children: Array<JSX.Element>) => JSX.Element}
  * @constructor
  */
-function script({key, placeholder = {}, children = []}) {
+function script({name, placeholder = {}, children = []}) {
     const [script = "", config = {}] = useSelector(i => {
-        return [i[key], i.config]
+        return [i[name], i.config]
     })
-    const [replaced, setReplaced] = useState("");
+    const [replaced, setReplaced] = useState([]);
     useEffect(() => {
         let returnValue = []
         const placeKey = Array.from(script.matchAll(config.regexp))
@@ -23,11 +23,11 @@ function script({key, placeholder = {}, children = []}) {
             returnValue.push(v);
             if(placeKey[i]) {
                 if(placeholder[i].$$typeof === Symbol.for('react.element') || !config.placeholder.allowsReactChild) {
-                    console.warn(`"${key}" Script doesn't allow to use react element for placeholder. So value of placeholder "${v}" won't be applied`);
+                    console.warn(`"${name}" Script doesn't allow to use react element for placeholder. So value of placeholder "${v}" won't be applied`);
                     return;
                 }
                 if(placeholder[i].constructor === Function || !config.placeholder.allowsFunction) {
-                    console.warn(`"${key}" Script doesn't allow to use function for placeholder. So value of placeholder "${v}" won't be applied`);
+                    console.warn(`"${name}" Script doesn't allow to use function for placeholder. So value of placeholder "${v}" won't be applied`);
                     return;
                 }
                 if(!placeholder[placeKey[i][1]] && config.input.noWholeNoRender) {
@@ -53,7 +53,7 @@ function script({key, placeholder = {}, children = []}) {
     )
 }
 script.propTypes = {
-    key: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     placeholder: PropTypes.object,
     children: PropTypes.array,
 }

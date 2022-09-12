@@ -8,7 +8,6 @@ export default class scriptParser {
     /* eslint-disable-next-line require-jsdoc */
     constructor(presets) {
         presets?.forEach(this.registerPresets());
-        return this;
     }
     /**
      * Returns parsed data

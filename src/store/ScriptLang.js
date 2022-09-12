@@ -7,7 +7,7 @@ import {useEffect} from "react";
 /**
  *
  * @param defaultLang
- * @param lang
+ * @param currentLang
  * @param presets
  * @param children
  * @returns {JSX.Element}
@@ -17,17 +17,18 @@ export function scriptConfig({defaultLang, currentLang, presets, children}) {
     useEffect(() => {
         store.dispatch(setLang(currentLang || defaultLang));
     }, [currentLang, defaultLang])
-    useEffect(async () => {
+    useEffect(() => {
         store.dispatch(setPresets(presets))
     }, [presets])
     return (
         <Provider store={store}>
-            {children}
+            {children.constructor === Array ? children : [children]}
         </Provider>
     )
 }
 scriptConfig.propTypes = {
-    lang: PropTypes.string.isRequired,
+    currentLang: PropTypes.string.isRequired,
+    defaultLang: PropTypes.string.isRequired,
     presets: PropTypes.any,
     children: PropTypes.any.isRequired,
 }

@@ -1,3 +1,4 @@
+import stateCheck from "../utils/redux/stateCheck";
 const SET_LANG = 'SET_LANG'
 const SET_PRESETS = 'SET_PRESETS'
 export const setLang = (lang) => {
@@ -14,15 +15,22 @@ export const setPresets = (presets) => {
 }
 const defaultValue = {
     'lang': '',
-    'presets': [],
+    'presets': {},
+    'isReady': false,
 }
 export const reducer = (state = defaultValue, action) => {
+    let states = state;
+    if(stateCheck(state, defaultValue)) {
+        states = {...states, isReady: true}
+    } else {
+        states = {...states, isReady: false}
+    }
     switch (action.type) {
         case SET_LANG:
-            return {...state, lang: action.lang}
+            return {...states, lang: action.lang}
         case SET_PRESETS:
-            return {...state, presets: [...action.presets]}
+            return {...states, presets: {...action.presets}}
         default:
-            return state;
+            return states;
     }
 }

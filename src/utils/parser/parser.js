@@ -3,11 +3,14 @@
  * @type { (presets: Array) =>  scriptParser}
  */
 export default class scriptParser {
-    #presets = {}
+    presets;
     static #spRegexp = /([\\^$.*+?=!:/()\[\]{}])/g
     /* eslint-disable-next-line require-jsdoc */
-    constructor(presets) {
-        presets?.forEach(this.registerPresets());
+    constructor(presets = {}) {
+        this.presets = {}
+        for(const [k, v] of Object.entries(presets)) {
+            this.presets[k] = v;
+        }
     }
     /**
      * Returns parsed data
@@ -18,11 +21,11 @@ export default class scriptParser {
     parse(scriptJson) {
         const parsePresets = () => {
             const pD = {};
-            Object.keys(scriptJson.presets).forEach(v => {
-                if(!this.#presets[v]) {
+            scriptJson.presets.forEach(v => {
+                if(!this.presets[v]) {
                     throw new Error(`Missing presets are existing Presets: ${v}`)
                 }
-                for(const [key, value] of Object.entries(this.#presets[v])) {
+                for(const [key, value] of Object.entries(this.presets[v])) {
                     if(pD[key] === undefined) pD[key] = value;
                 }
             })
@@ -31,11 +34,16 @@ export default class scriptParser {
         const generateRegexp = ({startWith, endWith}) => {
             startWith = startWith.replace(scriptParser.#spRegexp, '\\$1');
             endWith = endWith.replace(scriptParser.#spRegexp, '\\$1');
-            return new RegExp(`/${startWith}(\w+)${endWith}/g`);
+            return [new RegExp(`${startWith}(\\w+)${endWith}`, 'g'), new RegExp(`${startWith}\\w+${endWith}`, 'g')]
         }
         const data = {};
-        data.config = parsePresets();
-        data.config.regexp = generateRegexp({...data.config.placeholder.characters})
+        data["config"] = parsePresets();
+        const [regCapture, regOrigin] = generateRegexp({...data["config"]["placeholder"]["characters"]})
+        data["config"]["regexp"] = {
+            regCapture,
+            regOrigin,
+        }
+        data.script = {};
         for(const [k, v] of Object.entries(scriptJson['script'])) {
             if(!scriptJson['lang'].find(i => {
                 return i === k
@@ -48,17 +56,5 @@ export default class scriptParser {
             }
         }
         return data;
-    }
-    /**
-     * Register Extended file presets
-     * @param presets
-     * @returns {scriptParser}
-     * @type { (presets: Object) => scriptParser}
-     */
-    registerPresets(presets = {}) {
-        for(const [k, v] of Object.entries(presets)) {
-            this.#presets[k] = v;
-        }
-        return this;
     }
 }

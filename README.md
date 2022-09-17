@@ -1,4 +1,5 @@
 # json-script
+[![Build Status](http://jenkins.thezoot3.kro.kr:8080/buildStatus/icon?job=json-script)](http://jenkins.thezoot3.kro.kr:8080/job/json-script/)
 ### 리액트 프로젝트를 위한 스크립트 라이브러리입니다.
 ### Script library for React project
 

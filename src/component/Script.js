@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
  *
  * @param name
  * @param placeholder
- * @param config
+ * @param scriptConfig
  * @param children
  * @returns {JSX.Element}
  * @type { (key: String, placeholder: Object, children: Array<JSX.Element>) => JSX.Element}
@@ -47,7 +47,7 @@ function Script({name, placeholder = {}, scriptConfig, children = []}) {
             }
         })
         setReplaced(returnValue)
-    }, [config, isReady, name, placeholder, script])
+    }, [name, placeholder])
     return (
         <Fragment>
             {replaced.map(i => {

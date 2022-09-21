@@ -62,7 +62,7 @@ function Script({name, placeholder = {}, scriptSelector, children = []}) {
 Script.propTypes = {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.object,
-    scriptSelector: PropTypes.object.isRequired,
+    scriptSelector: PropTypes.func.isRequired,
     children: PropTypes.array,
 }
 export default Script

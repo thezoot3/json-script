@@ -1,13 +1,15 @@
 import Script from "../component/Script";
-import {useEffect, useState} from "react";
 import {createSelectorHook} from "react-redux";
+import {useEffect, useState} from "react";
 
 function useScript(loaderContext) {
-    const [selector, setSelector] = useState(createSelectorHook(loaderContext));
+    const [selector, setSelector] = useState(() => {
+        return createSelectorHook(loaderContext);
+    })
     useEffect(() => {
-        setSelector(createSelectorHook(loaderContext))
+        setSelector(() => {return createSelectorHook(loaderContext)})
     }, [loaderContext])
-    return ({name, placeholder, children}) => {
+    return ({name, placeholder = {}, children = []}) => {
         return (
             <Script name={name} placeholder={placeholder} scriptSelector={selector}>
                 {children.constructor === Array ? children : [children]}

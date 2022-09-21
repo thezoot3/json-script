@@ -1,4 +1,4 @@
-import {createSelectorHook} from 'react-redux';
+
 import {useEffect, useState, Fragment} from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
  *
  * @param name
  * @param placeholder
- * @param scriptConfig
+ * @param scriptSelector
  * @param children
  * @returns {JSX.Element}
  * @type { (key: String, placeholder: Object, children: Array<JSX.Element>) => JSX.Element}
  * @constructor
  */
-function Script({name, placeholder = {}, scriptConfig, children = []}) {
-    const [script, config, isReady] = createSelectorHook(scriptConfig)(i => {
+function Script({name, placeholder = {}, scriptSelector, children = []}) {
+    const [script, config, isReady] = scriptSelector(i => {
         return [i["script"][name], i["config"], i["isReady"]]
     })
     const [replaced, setReplaced] = useState([]);
@@ -62,6 +62,7 @@ function Script({name, placeholder = {}, scriptConfig, children = []}) {
 Script.propTypes = {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.object,
+    scriptSelector: PropTypes.object.isRequired,
     children: PropTypes.array,
 }
 export default Script

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import scriptParser from '../utils/parser/parser';
-import globalPreset from '../../../../Documents/@@사진첩/ideaProject/tonio-photo/src/assets/script/presets/defaultPresets.json';
+import globalPreset from '../../static/globalPreset.json';
 import {reducer as loaderReducer, setLang, setScript} from '../redux/ScriptLoader';
 import {createSelectorHook, Provider} from 'react-redux';
 import {createStore} from 'redux';

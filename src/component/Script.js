@@ -12,11 +12,28 @@ import PropTypes from 'prop-types';
  * @type { (key: String, placeholder: Object, children: Array<JSX.Element>) => JSX.Element}
  * @constructor
  */
-function Script({name, placeholder = {}, scriptSelector, children = []}) {
+function Script({name, placeholder = {}, scriptSelector, children}) {
     const [script, config, isReady] = scriptSelector(i => {
         return [i["script"][name], i["config"], i["isReady"]]
     })
     const [replaced, setReplaced] = useState([]);
+    const [ph, setPh] = useState(placeholder)
+    useEffect(() => {
+        let elementPlaceholder;
+        if(children.constructor === Array) {
+            elementPlaceholder = children.reduce((prev, i) => {
+                return Object.assign(i.type(i.props), prev);
+            }, {})
+        } else {
+            elementPlaceholder = children.type(children.props);
+        }
+        setPh(prev => {
+            return Object.assign(elementPlaceholder, prev)
+        })
+    }, [children])
+    useEffect(() => {
+       setPh(placeholder);
+    }, [placeholder])
     useEffect(() => {
         if(!isReady) {
             return;
@@ -26,28 +43,28 @@ function Script({name, placeholder = {}, scriptSelector, children = []}) {
         script.split(config["regexp"].regOrigin).every((v, i) => {
             returnValue.push(v);
             if(placeKey[i]) {
-                if(placeholder[i]?.["$$typeof"] === Symbol.for('react.element') && !config["placeholder"]["allowsReactChild"]) {
+                if(ph[i]?.["$$typeof"] === Symbol.for('react.element') && !config["placeholder"]["allowsReactChild"]) {
                     console.warn(`"${name}" Script doesn't allow to use react element for placeholder. So value of placeholder "${v}" won't be applied`);
                     return true;
                 }
-                if(placeholder[i]?.constructor === Function && !config["placeholder"]["allowsFunction"]) {
+                if(ph[i]?.constructor === Function && !config["placeholder"]["allowsFunction"]) {
                     console.warn(`"${name}" Script doesn't allow to use function for placeholder. So value of placeholder "${v}" won't be applied`);
                     return true;
                 }
-                if(!placeholder[placeKey[i][1]] && config["input"]["noWholeNoRender"]) {
+                if(!ph[placeKey[i][1]] && config["input"]["noWholeNoRender"]) {
                     let replacement = <div className={config["input"]["noWholeNoRender"]["cssClass"]}>
                         {config["input"]["noWholeNoRender"]["content"]}
                     </div>
                     returnValue = [replacement]
                     return false;
                 } else {
-                    returnValue.push(placeholder[placeKey[i][1]]);
+                    returnValue.push(ph[placeKey[i][1]]);
                     return true;
                 }
             }
         })
         setReplaced(returnValue)
-    }, [name, placeholder])
+    }, [name, isReady, script, config, ph])
     return (
         <Fragment>
             {replaced.map(i => {
@@ -63,6 +80,6 @@ Script.propTypes = {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.object,
     scriptSelector: PropTypes.func.isRequired,
-    children: PropTypes.array,
+    children: PropTypes.array
 }
 export default Script

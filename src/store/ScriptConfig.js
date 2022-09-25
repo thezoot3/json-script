@@ -27,11 +27,11 @@ function ScriptConfig({defaultLang, currentLang, presets, context, children}) {
         </Provider>
     )
 }
-ScriptConfig.prototype = {
+ScriptConfig.propTypes = {
     currentLang: PropTypes.string.isRequired,
     defaultLang: PropTypes.string.isRequired,
     presets: PropTypes.any,
     context: PropTypes.object.isRequired,
-    children: PropTypes.any.isRequired,
+    children: PropTypes.any.isRequired
 }
 export default ScriptConfig;

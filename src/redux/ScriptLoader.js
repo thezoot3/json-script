@@ -5,20 +5,20 @@ const SET_SCRIPT = 'SET_SCRIPT'
 export const setLang = (lang) => {
     return {
         type: SET_LANG,
-        lang,
+        lang
     }
 }
 export const setScript = (script, config) => {
     return {
         type: SET_SCRIPT,
         script,
-        config,
+        config
     }
 }
 const defaultValue = {
     'lang': '',
     'script': {},
-    'isReady': false,
+    'isReady': false
 }
 export const reducer = (state = defaultValue, action) => {
     let states = state;

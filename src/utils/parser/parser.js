@@ -41,7 +41,7 @@ export default class scriptParser {
         const [regCapture, regOrigin] = generateRegexp({...data["config"]["placeholder"]["characters"]})
         data["config"]["regexp"] = {
             regCapture,
-            regOrigin,
+            regOrigin
         }
         data.script = {};
         for(const [k, v] of Object.entries(scriptJson['script'])) {

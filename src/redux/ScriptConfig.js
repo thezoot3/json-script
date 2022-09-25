@@ -4,19 +4,19 @@ const SET_PRESETS = 'SET_PRESETS'
 export const setLang = (lang) => {
     return {
         type: SET_LANG,
-        lang,
+        lang
     }
 }
 export const setPresets = (presets) => {
     return {
         type: SET_PRESETS,
-        presets,
+        presets
     }
 }
 const defaultValue = {
     'lang': '',
     'presets': {},
-    'isReady': false,
+    'isReady': false
 }
 export const reducer = (state = defaultValue, action) => {
     let states = state;

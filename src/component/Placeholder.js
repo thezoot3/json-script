@@ -13,6 +13,6 @@ function Placeholder({name, value, disabled = false}) {
 Placeholder.propTypes = {
     name: PropTypes.string.isRequired,
     value : PropTypes.any.isRequired,
-    disabled: PropTypes.bool,
+    disabled: PropTypes.bool
 }
 export default Placeholder

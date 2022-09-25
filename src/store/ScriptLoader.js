@@ -42,6 +42,6 @@ ScriptLoader.propTypes = {
     script: PropTypes.object.isRequired,
     configContext: PropTypes.object.isRequired,
     children: PropTypes.any.isRequired,
-    context: PropTypes.object.isRequired,
+    context: PropTypes.object.isRequired
 }
 export default ScriptLoader

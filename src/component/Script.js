@@ -38,6 +38,21 @@ function Script({name, placeholder = {}, scriptSelector, children}) {
         if(!isReady) {
             return;
         }
+        setReplaced(this.getReplaced(name, script, config, ph))
+    }, [name, isReady, script, config, ph])
+    return (
+        <Fragment>
+            {replaced.map(i => {
+                if(i.constructor === Function) {
+                    return i()
+                }
+                return i;
+            })}
+        </Fragment>
+    )
+}
+Script.prototype = {
+    getReplaced: function(name, script, config, ph) {
         let returnValue = []
         const placeKey = Array.from(script.matchAll(config["regexp"]["regCapture"]))
         script.split(config["regexp"].regOrigin).every((v, i) => {
@@ -63,18 +78,8 @@ function Script({name, placeholder = {}, scriptSelector, children}) {
                 }
             }
         })
-        setReplaced(returnValue)
-    }, [name, isReady, script, config, ph])
-    return (
-        <Fragment>
-            {replaced.map(i => {
-                if(i.constructor === Function) {
-                    return i()
-                }
-                return i;
-            })}
-        </Fragment>
-    )
+        return returnValue
+    }
 }
 Script.propTypes = {
     name: PropTypes.string.isRequired,

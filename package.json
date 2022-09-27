@@ -1,6 +1,6 @@
 {
   "name": "@thezoot3/json-script",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Json script for react project",
   "main": "index.js",
   "scripts": {

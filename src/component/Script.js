@@ -38,7 +38,7 @@ function Script({name, placeholder = {}, scriptSelector, children}) {
         if(!isReady) {
             return;
         }
-        setReplaced(this.getReplaced(name, script, config, ph))
+        setReplaced(Script.prototype.getReplaced(name, script, config, ph))
     }, [name, isReady, script, config, ph])
     return (
         <Fragment>

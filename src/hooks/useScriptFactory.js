@@ -33,7 +33,7 @@ function useScriptFactory(loaderContext) {
             }
             setReplaced(Script.prototype.getReplaced(name, script, config, placeholder))
         }, [name, script, config, isReady, placeholder])
-        return replaced
+        return replaced.join("");
     }
     return [script, useScript];
 }

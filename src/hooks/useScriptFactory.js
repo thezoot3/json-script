@@ -2,17 +2,19 @@ import Script from "../component/Script";
 import {createSelectorHook} from "react-redux";
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-
+import {useScript} from "./useScript";
 function useScriptFactory(loaderContext) {
-    const [selector, setSelector] = useState(() => {
+    const [useSelector, setSelector] = useState(() => {
         return createSelectorHook(loaderContext);
     })
     useEffect(() => {
-        setSelector(() => {return createSelectorHook(loaderContext)})
+        setSelector(() => {
+            return createSelectorHook(loaderContext);
+        })
     }, [loaderContext])
     function script({name, placeholder = {}, children = []}) {
         return (
-            <Script name={name} placeholder={placeholder} scriptSelector={selector}>
+            <Script name={name} placeholder={placeholder} useSelector={useSelector}>
                 {children.constructor === Array ? children : [children]}
             </Script>
         )
@@ -22,19 +24,6 @@ function useScriptFactory(loaderContext) {
         placeholder: PropTypes.object,
         children: PropTypes.object
     }
-    function useScript({name, placeholder = {}}) {
-        const [script, config, isReady] = selector(i => {
-            return [i["script"][name], i["config"], i["isReady"]]
-        })
-        const [replaced, setReplaced] = useState([]);
-        useEffect(() => {
-            if(!isReady) {
-                return;
-            }
-            setReplaced(Script.prototype.getReplaced(name, script, config, placeholder))
-        }, [name, script, config, isReady, placeholder])
-        return replaced.join("");
-    }
-    return [script, useScript];
+    return [script, useScript(useSelector)];
 }
 export default useScriptFactory;

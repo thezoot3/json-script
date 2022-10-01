@@ -34,7 +34,6 @@ function Script({name, placeholder = {}, useSelector, children}) {
         setPh(placeholder);
     }, [placeholder])
     useEffect(() => {
-        console.log(name, isReady, script, config, ph)
         if(!isReady) {
             return;
         }

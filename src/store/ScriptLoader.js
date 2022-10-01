@@ -4,8 +4,8 @@ import globalPreset from '../../static/globalPreset.json';
 import {reducer as loaderReducer, setLang, setScript} from '../redux/ScriptLoader';
 import {createSelectorHook, Provider} from 'react-redux';
 import {createStore} from 'redux';
-import { useEffect} from "react";
-const store = createStore(loaderReducer)
+import {useEffect, useMemo} from "react";
+
 /**
  *
  * @param config
@@ -15,6 +15,9 @@ const store = createStore(loaderReducer)
  * @returns {JSX.Element}
  */
 function ScriptLoader({configContext, script, context, children}) {
+    const store = useMemo(() => {
+        return createStore(loaderReducer)
+    }, [])
     const [lang, presets, isReady] = createSelectorHook(configContext)(i => {
         return [i.lang, i.presets, i.isReady]
     })

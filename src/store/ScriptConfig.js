@@ -2,8 +2,7 @@ import {reducer as langReducer, setLang, setPresets} from '../redux/ScriptConfig
 import { createStore } from 'redux';
 import PropTypes from 'prop-types';
 import {Provider} from 'react-redux';
-import {useEffect} from "react";
-const store = createStore(langReducer)
+import {useEffect, useMemo} from "react";
 /**
  *
  * @param defaultLang
@@ -14,6 +13,9 @@ const store = createStore(langReducer)
  * @returns {JSX.Element}
  */
 function ScriptConfig({defaultLang, currentLang, presets, context, children}) {
+    const store = useMemo(() => {
+        return createStore(langReducer)
+    }, [])
     useEffect(() => {
         store.dispatch(setLang(currentLang || defaultLang));
     }, [store, currentLang, defaultLang])

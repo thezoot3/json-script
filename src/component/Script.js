@@ -1,7 +1,6 @@
 
 import {useEffect, useState, Fragment} from 'react';
 import PropTypes from 'prop-types';
-
 /**
  *
  * @param name
@@ -12,8 +11,8 @@ import PropTypes from 'prop-types';
  * @type { (key: String, placeholder: Object, children: Array<JSX.Element>) => JSX.Element}
  * @constructor
  */
-function Script({name, placeholder = {}, scriptSelector, children}) {
-    const [script, config, isReady] = scriptSelector(i => {
+function Script({name, placeholder = {}, useSelector, children}) {
+    const [script, config, isReady] = useSelector(i => {
         return [i["script"][name], i["config"], i["isReady"]]
     })
     const [replaced, setReplaced] = useState([]);
@@ -30,16 +29,17 @@ function Script({name, placeholder = {}, scriptSelector, children}) {
         setPh(prev => {
             return Object.assign(elementPlaceholder, prev)
         })
-    }, [children])
+    }, [ph, children])
     useEffect(() => {
-       setPh(placeholder);
+        setPh(placeholder);
     }, [placeholder])
     useEffect(() => {
+        console.log(name, isReady, script, config, ph)
         if(!isReady) {
             return;
         }
         setReplaced(Script.prototype.getReplaced(name, script, config, ph))
-    }, [name, isReady, script, config, ph])
+    }, [config, isReady, name, ph, script])
     return (
         <Fragment>
             {replaced.map(i => {
@@ -52,7 +52,7 @@ function Script({name, placeholder = {}, scriptSelector, children}) {
     )
 }
 Script.prototype = {
-    getReplaced: function(name, script, config, ph) {
+    getReplaced: (name, script, config, ph) => {
         let returnValue = []
         const placeKey = Array.from(script.matchAll(config["regexp"]["regCapture"]))
         script.split(config["regexp"].regOrigin).every((v, i) => {
@@ -77,6 +77,7 @@ Script.prototype = {
                     return true;
                 }
             }
+            return true;
         })
         return returnValue
     }
@@ -84,7 +85,7 @@ Script.prototype = {
 Script.propTypes = {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.object,
-    scriptSelector: PropTypes.func.isRequired,
+    useSelector: PropTypes.func.isRequired,
     children: PropTypes.array
 }
 export default Script

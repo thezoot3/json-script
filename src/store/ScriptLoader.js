@@ -5,7 +5,7 @@ import {reducer as loaderReducer, setLang, setScript} from '../redux/ScriptLoade
 import {createSelectorHook, Provider} from 'react-redux';
 import {createStore} from 'redux';
 import { useEffect} from "react";
-import { composeWithDevTools } from 'redux-devtools-extension';
+const store = createStore(loaderReducer)
 /**
  *
  * @param config
@@ -15,7 +15,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
  * @returns {JSX.Element}
  */
 function ScriptLoader({configContext, script, context, children}) {
-    const store = createStore(loaderReducer, composeWithDevTools())
     const [lang, presets, isReady] = createSelectorHook(configContext)(i => {
         return [i.lang, i.presets, i.isReady]
     })

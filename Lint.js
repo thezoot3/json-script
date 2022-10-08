@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 const { ESLint } = require("eslint");
 (async function main() {
     const eslint = new ESLint();

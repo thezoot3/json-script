@@ -1,6 +1,6 @@
-
 import {useEffect, useState, Fragment} from 'react';
 import PropTypes from 'prop-types';
+import useScriptSelector from "../hooks/useScriptSelector";
 /**
  *
  * @param name
@@ -11,10 +11,8 @@ import PropTypes from 'prop-types';
  * @type { (key: String, placeholder: Object, children: Array<JSX.Element>) => JSX.Element}
  * @constructor
  */
-function Script({name, placeholder = {}, useSelector, children}) {
-    const [script, config, isReady] = useSelector(i => {
-        return [i["script"][name], i["config"], i["isReady"]]
-    })
+function Script({name, placeholder = {}, context, children}) {
+    const [script, config, isReady] = useScriptSelector(name, context)
     const [replaced, setReplaced] = useState([]);
     const [ph, setPh] = useState(placeholder)
     useEffect(() => {
@@ -84,7 +82,7 @@ Script.prototype = {
 Script.propTypes = {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.object,
-    useSelector: PropTypes.func.isRequired,
+    context: PropTypes.object.isRequired,
     children: PropTypes.array
 }
 export default Script

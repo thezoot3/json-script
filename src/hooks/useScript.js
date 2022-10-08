@@ -1,13 +1,9 @@
 import {useEffect, useState} from "react";
 import Script from "../component/Script";
-export function useScript(selector) {
+import useScriptSelector from "./useScriptSelector";
+export function useScript(context) {
     return function useScript(name, placeholder) {
-        const [script, config, isReady] = selector(i => {
-            if(!i["script"][name] && i["isReady"]) {
-                throw new Error("There's no script with name '" + name + "'.")
-            }
-            return [i["script"][name], i["config"], i["isReady"]]
-        })
+        const [script, config, isReady] = useScriptSelector(name, context)
         const [replaced, setReplaced] = useState([]);
         useEffect(() => {
             if(!isReady) {

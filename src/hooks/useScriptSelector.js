@@ -4,8 +4,9 @@ import {createSelectorHook} from "react-redux";
 function useScriptSelector(name, context) {
     const selector = useCallback(createSelectorHook(context), [context]);
     const [script, config, isReady] = selector(i => {
-        const [matched, realName] = /\/g_(\w+)/.exec(name);
-        if(matched) {
+        const exec = /\/g_(\w+)/.exec(name);
+        if(exec) {
+            const realName = exec[1];
             if(!i["global"][realName] && i["isReady"]) {
                 throw new Error("There's no script with name '" + realName + "'.")
             }

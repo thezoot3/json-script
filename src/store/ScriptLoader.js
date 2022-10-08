@@ -28,7 +28,7 @@ function ScriptLoader({configContext, script, context, children}) {
         }
         store.dispatch(setLang(lang))
         const parsed = new scriptParser({...presets, "globalPreset": globalPreset}).parse(script)
-        store.dispatch(setGlobalScript(parsed["script"]["global"]))
+        store.dispatch(setGlobalScript(parsed["script"]["__global"]))
         if(script.lang.includes(lang)) {
             store.dispatch(setScript(parsed["script"][lang], parsed["config"]));
         } else {

@@ -45,15 +45,17 @@ export default class scriptParser {
         }
         data.script = {};
         for(const [k, v] of Object.entries(scriptJson['script'])) {
-            if(!scriptJson['lang'].find(i => {
-                return i === k
-            })) {
-                throw new Error('There is unexpected language in script data');
-            }
-            data.script[k] = {}
-            for(const [sN, sD] of Object.entries(v)) {
-                data.script[k][sN] = sD
-            }
+             if(k !== "__global") {
+                 if(!scriptJson['lang'].find(i => {
+                     return i === k
+                 })) {
+                     throw new Error('There is unexpected language in script data');
+                 }
+             }
+             data.script[k] = {}
+             for(const [sN, sD] of Object.entries(v)) {
+                 data.script[k][sN] = sD
+             }
         }
         return data;
     }

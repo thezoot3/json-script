@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import scriptParser from '../utils/parser/parser';
 import globalPreset from '../../static/globalPreset.json';
-import {reducer as loaderReducer, setLang, setScript} from '../redux/ScriptLoader';
+import {reducer as loaderReducer, setGlobalScript, setLang, setScript} from '../redux/ScriptLoader';
 import {createSelectorHook, Provider} from 'react-redux';
 import {createStore} from 'redux';
-import {useEffect, useMemo} from "react";
+import {useCallback, useEffect, useMemo} from "react";
 
 /**
  *
@@ -17,8 +17,9 @@ import {useEffect, useMemo} from "react";
 function ScriptLoader({configContext, script, context, children}) {
     const store = useMemo(() => {
         return createStore(loaderReducer)
-    }, [])
-    const [lang, presets, isReady] = createSelectorHook(configContext)(i => {
+    }, []);
+    const selector = useCallback(createSelectorHook(configContext), [configContext])
+    const [lang, presets, isReady] = selector(i => {
         return [i.lang, i.presets, i.isReady]
     })
     useEffect(() => {
@@ -27,6 +28,7 @@ function ScriptLoader({configContext, script, context, children}) {
         }
         store.dispatch(setLang(lang))
         const parsed = new scriptParser({...presets, "globalPreset": globalPreset}).parse(script)
+        store.dispatch(setGlobalScript(parsed["script"]["global"]))
         if(script.lang.includes(lang)) {
             store.dispatch(setScript(parsed["script"][lang], parsed["config"]));
         } else {
